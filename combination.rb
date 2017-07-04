@@ -4,7 +4,6 @@ require_relative 'card'
 class Combination
   attr_reader :name
 
-  ROYALS = %w[A K Q J T].freeze
   COMBINATION_NAMES = %i[high_hand one_pair two_pairs three_of_a_kind straight flush
                          full_house four_of_a_kind straight_flush royal_flush].freeze
 
@@ -47,7 +46,7 @@ class Combination
   end
 
   def royal_flush?
-    @cards.map(&:rank).sort == ROYALS.sort && flush?
+    @cards.map(&:rank).sort == %w[A K Q J T].sort && flush?
   end
 
   def straight_flush?
