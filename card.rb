@@ -1,4 +1,3 @@
-require 'pry'
 require_relative 'poker_error'
 
 class Card

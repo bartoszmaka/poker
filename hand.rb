@@ -3,6 +3,7 @@ require_relative 'card'
 
 class Hand
   include Comparable
+
   attr_accessor :cards, :combination
 
   def initialize(cards)
