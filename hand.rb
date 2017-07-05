@@ -29,6 +29,6 @@ class Hand
   private
 
   def validate_cards_count
-    raise PokerError::InvalidNumberOfCardsError if @cards.count != 5
+    raise PokerError::InvalidNumberOfCardsError if cards.count != 5
   end
 end

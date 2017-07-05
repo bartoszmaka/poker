@@ -2,7 +2,7 @@ require 'pry'
 require_relative 'card'
 
 class Combination
-  attr_reader :name
+  attr_reader :name, :cards
 
   COMBINATION_NAMES = %i[high_hand one_pair two_pairs three_of_a_kind straight flush
                          full_house four_of_a_kind straight_flush royal_flush].freeze
@@ -14,7 +14,7 @@ class Combination
   end
 
   def score
-    COMBINATION_NAMES.index(@name)
+    COMBINATION_NAMES.index(name)
   end
 
   def first_combination_card
@@ -29,13 +29,15 @@ class Combination
 
   private
 
+  attr_writer :name
+
   def hash_with_repeated_elements_only
     @hash_with_cards_amounts.select { |_k, v| v > 1 }
   end
 
   def iterate_through_each_combination_from_the_strongest_one
     COMBINATION_NAMES.reverse.each do |combination_name|
-      @name = combination_name
+      self.name = combination_name
       method_name = combination_name.to_s + '?'
       break if send(method_name) == true
     end
@@ -46,7 +48,7 @@ class Combination
   end
 
   def royal_flush?
-    @cards.map(&:rank).sort == %w[A K Q J T].sort && flush?
+    cards.map(&:rank).sort == %w[A K Q J T].sort && flush?
   end
 
   def straight_flush?
@@ -54,11 +56,11 @@ class Combination
   end
 
   def straight?
-    @cards.map(&:score).sort.each_cons(2).map { |x, y| y - x } == [1, 1, 1, 1]
+    cards.map(&:score).sort.each_cons(2).map { |x, y| y - x } == [1, 1, 1, 1]
   end
 
   def flush?
-    @cards.map(&:suit).uniq.length == 1
+    cards.map(&:suit).uniq.length == 1
   end
 
   def four_of_a_kind?

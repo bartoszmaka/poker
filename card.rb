@@ -21,13 +21,13 @@ class Card
   end
 
   def score
-    VALID_RANKS.index(@rank)
+    VALID_RANKS.index(rank)
   end
 
   private
 
   def validate_card_name
-    return if VALID_SUITS.include?(@suit) && VALID_RANKS.include?(@rank)
+    return if VALID_SUITS.include?(suit) && VALID_RANKS.include?(rank)
     raise PokerError::InvalidCardError
   end
 end
